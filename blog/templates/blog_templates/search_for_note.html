@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/main_styles.css' %}">
+{% endblock %}
+
+{% block title %}Страница поиска{% endblock %}
+
+{% block content %}
+    <div class="main__content">
+        <div class="content__header">
+            <div class="content__title">Найденные записи</div>
+        </div>
+        {% for note in notes %}
+        <div class="card w-75">
+          <div class="card-body">
+            <h3 class="card-title">{{ note.title }}</h3>
+            <p class="card-text">{{ note.content|slice:101 }}...</p>
+            <a href="{% url 'note_page' note.slug %}" class="btn btn-primary">Читать дальше...</a>
+          </div>
+          <div class="card-footer text-muted">
+            {% if note.date_create == note.date_update %}
+              Добавлено: {{ note.date_create }}
+            {% else %}
+              Изменено: {{ note.date_update }}
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+         <a class="btn btn-primary" href="{% url 'main_page' %}" role="button">Вернуться на главную</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Обновление записи №{{ id }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/update_note_styles.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+    <div class="content__title">Форма для редактирования записи</div>
+    <form action="{% url 'update_note_page' slug %}" method="post" class="update_form">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form_element">
+            <div class="form_tag">
+                {{ field.label_tag }}
+            </div>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button type="reset" class="btn btn-danger">Отмена</button>
+        <button type="submit" class="btn btn-primary">Подтвердить</button>
+    </form>
+    <a class="btn btn-secondary" href="{% url 'main_page' %}" role="button">Выйти</a>
+{% endblock %}

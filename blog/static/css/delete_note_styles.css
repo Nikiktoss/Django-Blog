@@ -1,0 +1,33 @@
+body{
+    padding: 30px 50px;
+}
+
+.delete__content{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title{
+    font-family: serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 44px;
+}
+
+.choice{
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn{
+    font-family: serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 24px;
+}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/main_styles.css' %}">
+{% endblock %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+     <div class="main__content">
+        <div class="content__header">
+            <div class="content__title">Последние добавленные записи</div>
+            <form class="d-flex" method="post" action="{% url 'search_page' %}">
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" name="note_title" placeholder="Введите название записи" aria-label="Поиск">
+              <button class="btn btn-outline-primary" type="submit">Поиск</button>
+            </form>
+        </div>
+            {% for note in notes %}
+                <div class="card w-75">
+                  <div class="card-body">
+                    <h3 class="card-title">{{ note.title }}</h3>
+                    <p class="card-text">{{ note.content|slice:101 }}...</p>
+                    <a href="{% url 'note_page' note.slug %}" class="btn btn-primary">Читать дальше...</a>
+                  </div>
+                  <div class="card-footer text-muted">
+                    {% if note.date_create == note.date_update %}
+                      Добавлено: {{ note.date_create }}
+                    {% else %}
+                      Изменено: {{ note.date_update }}
+                    {% endif %}
+                  </div>
+                </div>
+            {% endfor %}
+        <div class="history">
+            История
+            {% for action in actions %}
+            <p>{{ action.action }}</p>
+            {% endfor %}
+        </div>
+        {% if number != notes|length %}
+            <a class="btn btn-primary" href="{% url 'view_notes' %}" role="button">Смотреть все записи</a>
+        {% endif %}
+    </div>
+{% endblock %}

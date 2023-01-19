@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+     <link rel="stylesheet" href="{% static 'css/note_styles.css' %}">
+{% endblock %}
+
+{% block title %}
+    Обзор записи №{{ note.id }}
+{% endblock %}
+
+{% block content %}
+    <div class="page__content">
+        <div class="note__title">{{ note.title }}</div>
+        <div class="note__content">
+            <div class="note__text">{{ note.content }}</div>
+            <div class="note__buttons">
+                <a class="btn btn-danger" href="{% url 'delete_note_page' note.slug %}" role="button">Удалить</a>
+                <a class="btn btn-primary" href="{% url 'update_note_page' note.slug %}" role="button">Редактировать</a>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" href="{% url 'main_page' %}" role="button">Вернуться на главную страницу</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/delete_some_notes_styles.css' %}">
+{% endblock %}
+
+{% block title %}Удаление записей{% endblock %}
+
+{% block navbar %}
+    <nav class="main__navbar">
+        <div class="blog__logo">MyBlog</div>
+        <a href="{% url 'main_page' %}" class="navbar__element">Главная</a>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="page__content">
+        <div class="content__title">Выберите записи, которые вы хотите удалить</div>
+        <form action="{% url 'delete_some_notes_page' %}" method="post">
+            {% csrf_token %}
+            {% for note in notes %}
+            <div class="form__element">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="choices" value="{{ note.id }}" id="option{{ note.id }}">
+                </div>
+                <label for="option{{ note.id }}" class="card w-75">
+                  <div class="card-body">
+                    <h3 class="card-title">{{ note.title }}</h3>
+                    <p class="card-text">{{ note.content|slice:101 }}...</p>
+                  </div>
+                  <div class="card-footer text-muted">
+                    {% if note.date_create == note.date_update %}
+                      Добавлено: {{ note.date_create }}
+                    {% else %}
+                      Изменено: {{ note.date_update }}
+                    {% endif %}
+                  </div>
+                  </label>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary" value="click">Подтвердить</button>
+        </form>
+    </div>
+{% endblock %}

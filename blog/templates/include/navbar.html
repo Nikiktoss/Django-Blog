@@ -1,0 +1,15 @@
+<nav class="main__navbar">
+    <div class="blog__logo">MyBlog</div>
+    <div class="navbar__actions">
+        <div class="dropdown">
+          <a class="navbar__element" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Действия
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li class="elems"><a class="dropdown-item" href="{% url 'add_note_page' %}">Добавить запись</a></li>
+            <li class="elems"><a class="dropdown-item" href="{% url 'delete_some_notes_page' %}">Удалить</a></li>
+          </ul>
+        </div>
+        <a href="#" class="navbar__element" >Профиль</a>
+    </div>
+</nav>

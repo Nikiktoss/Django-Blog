@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/delete_note_styles.css' %}">
+{% endblock %}
+
+{% block title %}Удаление записи №{{ note.id }}{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+    <div class="delete__content">
+        <p class="title">Вы действительно хотите удалить запись "{{ note.title }}"?</p>
+        <div class="choice">
+            <a href="{% url 'note_page' note.slug %}" class="btn btn-danger">Отмена</a>
+            <form action="{% url 'delete_note_page' note.slug %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Подтвердить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
