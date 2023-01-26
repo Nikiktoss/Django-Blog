@@ -1,3 +1,5 @@
+from django.core.mail import send_mail
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
 from .models import Action
@@ -91,3 +93,23 @@ def search_for_note(request):
             notes.append(note)
 
     return render(request, 'blog_templates/search_for_note.html', context={'notes': notes})
+
+
+def share_email(request, slug):
+    note = Note.objects.get(slug=slug)
+    if request.method == "POST":
+        form = SendEmailForm(request.POST)
+        if form.is_valid():
+            email_from = form.cleaned_data['email_from']
+            send_mail(
+                subject=form.cleaned_data['title'],
+                message=f"User with email {email_from} want to share his note with you!\n"
+                        f"{note.title}\n"
+                        f"{note.content}\n",
+                from_email=email_from,
+                recipient_list=[form.cleaned_data['email_to']]
+            )
+            return redirect('main_page')
+        else:
+            return HttpResponse("Fatal(")
+    return render(request, 'blog_templates/share_email.html', context={'note': note})
