@@ -1,0 +1,15 @@
+<nav class="main__navbar">
+    <div class="blog__logo">MyBlog</div>
+    <div class="navbar__actions">
+        <div class="dropdown">
+          <a class="navbar__element" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Действия
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li class="elems"><a class="dropdown-item" href="{% url 'main_page' %}">Вернуться на главную страницу</a></li>
+            <li class="elems"><a class="dropdown-item" href="{% url 'share_email_page' note.slug %}">Поделиться</a></li>
+          </ul>
+        </div>
+        <a href="#" class="navbar__element" >Профиль</a>
+    </div>
+</nav>
