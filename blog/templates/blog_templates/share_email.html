@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Отправка записи № {{ note.id }} по email{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/share_email.css' %}">
+{% endblock %}
+
+{% block navbar %}
+    <nav class="main__navbar">
+        <div class="blog__logo">MyBlog</div>
+        <a href="{% url 'main_page' %}" class="navbar__element">Главная</a>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="page_content">
+        <h3 class="content_title">Для того, чтобы поделиться записью "{{ note.title }}" заполните форму ниже</h3>
+        <form action="{% url 'share_email_page' note.slug %}" method="post" class="email_form">
+            {% csrf_token %}
+            <div class="div_email_form">
+                <input type="text" name="title" placeholder="Введите название письма" class="form_element">
+                <input type="email" name="email_from" placeholder="Введите email отправителя" class="form_element">
+                <input type="email" name="email_to" placeholder="Введите email получателя" class="form_element">
+                <textarea name="message" class="textarea_form" placeholder="Введите текст сообщения"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+    </div>
+{% endblock %}
