@@ -24,3 +24,10 @@ class NoteUpDateForm(forms.ModelForm):
         labels = {
             'title': 'Название',
         }
+
+
+class SendEmailForm(forms.Form):
+    title = forms.CharField(label="Название")
+    email_from = forms.EmailField(label="Почта отправителя")
+    email_to = forms.EmailField(label="Почта получателя")
+    message = forms.Textarea()
